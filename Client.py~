@@ -7,12 +7,12 @@ is then attaned from either one
 import socket, sys, re
 sys.path.append("../lib")# for params
 import params
-from FTPSock import * #holds file transfer protocol
+from FTPSock import * #holds our File transfer protocol
 
 switchesVarDefaults = (
     (('-s', '--server'), 'server', "127.0.0.1:50001"),
-    (('-d', '--debug'), "debug", False), 
-    (('-?', '--usage'), "usage", False), 
+    (('-d', '--debug'), "debug", False), # boolean (set if present) #no functionality has been given to switchesVarDefaults besides server
+    (('-?', '--usage'), "usage", False), # boolean (set if present)
     )
 progname = 'FTPClient'
 paramMap = params.parseParams(switchesVarDefaults)
@@ -23,7 +23,7 @@ if usage:
     params.usage()
 
 try:
-    serverHost, serverPort = re.split(':', server) #obtain ip and port #
+    serverHost, serverPort = re.split(':', server) #attain ip and port #
     serverPort = int(serverPort) #type cast
 except: #error case
     pass
@@ -49,7 +49,7 @@ try: #establish connection
     fNewName = readLine() #new name for the file
     myPrint('Sending file Contents')
 
-    ftp_send(s, fNewName, fCopy) 
+    ftp_send(s, fNewName, fCopy) #pass the socket, file to copy, and new name for file to be copied
 
 except:
         myPrint('Could not connect to the server')

@@ -32,10 +32,10 @@ while 1:
     ftp_send_Hello(conn)
 
     try:
-        fCont = ftp_recv(conn)
-        file_name = fCont[:fCont.index('NAME')] #attain the filename
+        fCont = ftp_recv(conn) #receive connection
+        file_name = fCont[:fCont.index('NAME')] #get the filename
         myWrite(file_name, fCont[fCont.index('NAME') + 2:])
-        myPrint('Completed file transfer the transfer') #Complete message
+        myPrint('Completed file transfer') #Complete message
         break
     except:
         myPrint('Error: File Transfer not accomplished')
