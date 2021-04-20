@@ -8,30 +8,26 @@ port = 50001                    # Reserve a port for your service.
 BUFFER_SIZE = 1024
 
 s.connect((host, port))
-s.send('Hello server!'.encode())
 
-with open('received_file', 'wb') as f:
-    print('file opened')
-    while True:
-        print('receiving data...')
-        data = s.recv(BUFFER_SIZE)
-        print('Data in file: %s', (data))
-        if not data:
-            #f.close()
-           # print('file close()')
-            break
-        break
-        # write data to a file
-        #f.write(data)
+filename='mytext.txt'
+f = open(filename,'rb')
+l = f.read(1024)
+
+while (l):
+    s.send(l)
+    print('Sent ',repr(l)) #repr returns string containing printable representation of object
+    l = f.read(1024)
+    f.close()
+    break
         
-f.close()
-print('Successfully got the file')
-s.shutdown(socket.SHUT_WR)
+
+print('Successfully sent the file')
+#s.shutdown(socket.SHUT_WR)
 #while 1:
  #   data = s.recv(BUFFER_SIZE).decode()
   #  print("Received '%s'" % data)
    # if len(data) == 0:
     #    break
-print("Zero length read.  Closing")
+#print("Zero length read.  Closing")
 s.close()
 print('connection closed')
